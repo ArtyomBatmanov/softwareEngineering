@@ -1,0 +1,17 @@
+services:
+  fastapi:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./main.py:/app/main.py
+    command: uvicorn main:app --host 0.0.0.0 --reload
+
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
