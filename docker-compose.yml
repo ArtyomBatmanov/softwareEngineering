@@ -4,14 +4,29 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./main.py:/app/main.py
+      - .:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:mypassword@postgres:5432/mydatabase
     command: uvicorn main:app --host 0.0.0.0 --reload
+    depends_on:
+      postgres:
+        condition: service_healthy
 
   postgres:
     image: postgres:alpine
     environment:
-      POSTGRES_USER: myuser
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydatabase
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
