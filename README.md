@@ -23,20 +23,20 @@ REST API для управления студенческим журналом (
 .
 ├── app/
 │   ├── database/
-│   │   └── connection.py      # Настройка подключения к БД
-│   ├── models/                # SQLAlchemy модели
+│   │   └── connection.py      
+│   ├── models/               
 │   │   ├── student.py
 │   │   ├── subject.py
 │   │   └── grade.py
-│   ├── schemas/               # Pydantic схемы
+│   ├── schemas/               
 │   │   ├── student.py
 │   │   ├── subject.py
 │   │   └── grade.py
-│   └── routers/               # API endpoints
+│   └── routers/               
 │       ├── students.py
 │       ├── subjects.py
 │       └── grades.py
-├── main.py                    # Главный файл приложения
+├── main.py                    
 ├── requirements.txt
 ├── Dockerfile
 └── docker-compose.yml

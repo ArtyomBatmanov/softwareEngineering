@@ -1,17 +1,4 @@
 services:
-  fastapi:
-    build: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
-    environment:
-      - DATABASE_URL=postgresql://postgres:mypassword@postgres:5432/mydatabase
-    command: uvicorn main:app --host 0.0.0.0 --reload
-    depends_on:
-      postgres:
-        condition: service_healthy
-
   postgres:
     image: postgres:alpine
     environment:
@@ -28,6 +15,33 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  fastapi:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=postgresql://postgres:mypassword@postgres:5432/mydatabase
+    command: uvicorn main:app --host 0.0.0.0 --reload
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    depends_on:
+      - fastapi
 
 volumes:
   postgres_data:
