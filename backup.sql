@@ -45,7 +45,7 @@ CREATE TABLE public.grades (
     id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
     "studentId" uuid NOT NULL,
     "subjectId" uuid NOT NULL,
-    grade double precision NOT NULL,
+    grade SMALLINT NOT NULL CHECK (grade BETWEEN 2 AND 5),
     "createRowTime" timestamp with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
@@ -103,9 +103,9 @@ ALTER VIEW public.grades_view OWNER TO postgres;
 --
 
 COPY public.grades (id, "studentId", "subjectId", grade, "createRowTime") FROM stdin;
-10eebc99-9c0b-4ef8-bb6d-6bb9bd380a17	a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11	d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14	85.5	2026-10-01 10:00:00+00
-20eebc99-9c0b-4ef8-bb6d-6bb9bd380a18	a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11	e0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15	92	2026-10-15 14:30:00+00
-30eebc99-9c0b-4ef8-bb6d-6bb9bd380a19	b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12	d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14	78	2026-10-01 10:00:00+00
+10eebc99-9c0b-4ef8-bb6d-6bb9bd380a17	a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11	d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14	3	2026-10-01 10:00:00+00
+20eebc99-9c0b-4ef8-bb6d-6bb9bd380a18	a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11	e0eebc99-9c0b-4ef8-bb6d-6bb9bd380a15	4	2026-10-15 14:30:00+00
+30eebc99-9c0b-4ef8-bb6d-6bb9bd380a19	b0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12	d0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14	5	2026-10-01 10:00:00+00
 \.
 
 
