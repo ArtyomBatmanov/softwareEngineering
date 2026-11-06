@@ -231,7 +231,7 @@ export const GradesPage: React.FC = () => {
             </select>
           </div>
           <div className="form-group">
-            <label className="form-label" htmlFor="grade">Оценка (0-100) *</label>
+            <label className="form-label" htmlFor="grade">Оценка*</label>
             <input
               type="number"
               id="grade"
@@ -239,9 +239,9 @@ export const GradesPage: React.FC = () => {
               className="form-input"
               value={formData.grade}
               onChange={handleInputChange}
-              min="0"
-              max="100"
-              step="0.1"
+              min="2"
+              max="5"
+              step="1"
               required
             />
           </div>
